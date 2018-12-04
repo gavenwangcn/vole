@@ -24,7 +24,6 @@ Vole 是一个基于最新的SpringCloud2.0的微服务商业开发脚手架->(�
 * 支持Kafka,RabbitMQ,Rocketmq的消息接入
 * 支持Spring-Oauth2的sso
 * 支持Spring-Security的cas客户端
-* 支持Spring-Security的cas客户端
 * 支持FastDfs的客户端
 
 
