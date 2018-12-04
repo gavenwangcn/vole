@@ -1,4 +1,5 @@
 <img src="./docs/images/logo.png" height=80></img>
+image:http://img.shields.io/badge/license-ASF2-blue.svg["Apache License 2", link="http://www.apache.org/licenses/LICENSE-2.0.txt"]
 
 Vole
 -------
