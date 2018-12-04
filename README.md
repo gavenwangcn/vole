@@ -1,8 +1,5 @@
 <img src="./docs/images/logo.png" height=80></img>
 
-[![Gitter](https://badges.gitter.im/fagongzi/gateway.svg)](https://gitter.im/fagongzi/gateway?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Build Status](https://api.travis-ci.org/fagongzi/gateway.svg)](https://travis-ci.org/fagongzi/gateway)
-
 Vole
 -------
 Vole 是一个基于最新的SpringCloud2.0的商业开发脚手架,支持公司全方位应用架构搭建
@@ -67,4 +64,4 @@ Zuul的网关服务，支持动态配置网关[更多](./docs/gateway.md)。
 相关任务，消息，监控等组件[更多](./docs/modules.md)。
 
 # 交流方式-微信
-![](./docs/images/wx.png)
+<img src="./docs/images/wx.png" height=400></img>
