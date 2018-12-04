@@ -1,0 +1,35 @@
+server:
+  port: 8998
+
+spring:
+  application:
+    name: vole-casclient-service
+
+security:
+  cas:
+    server:
+      host: http://192.168.1.202:9082/cas
+      login: ${security.cas.server.host}/login
+      logout: ${security.cas.server.host}/logout
+    service:
+      host: http://localhost:9088
+      login: /login/cas
+      logout: /logout
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1025/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

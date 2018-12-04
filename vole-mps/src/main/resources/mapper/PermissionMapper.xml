@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.vole.mps.mapper.PermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.vole.mps.model.entity.Permission">
+        <id column="permission_id" property="permissionId" />
+        <result column="permission" property="permission" />
+        <result column="url" property="url" />
+        <result column="method" property="method" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="PermissionVoResultMap" type="com.github.vole.mps.model.vo.PermissionVO">
+        <id column="permission_Id" property="permissionId" />
+        <result column="permission" property="permission" />
+        <result column="url" property="url" />
+        <result column="method" property="method" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <select id="findPermissionByRoleName" resultMap="PermissionVoResultMap">
+        SELECT
+            permission.*
+        FROM
+        role
+        LEFT JOIN role_permission ON role_permission.role_id = role.role_id
+        LEFT JOIN permission ON permission.permission_id = role_permission.permission_id
+        WHERE
+        role.del_flag = 0
+        AND role.role_code = #{role}
+        ORDER BY permission.permission_id DESC
+    </select>
+</mapper>

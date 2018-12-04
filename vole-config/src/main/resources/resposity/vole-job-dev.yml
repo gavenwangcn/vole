@@ -1,0 +1,13 @@
+server:
+  port: 4060
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3309/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  elasticjob:
+    zookeeper:
+      server-lists: 127.0.0.1:2181
+      namespace: vole-job

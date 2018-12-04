@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.vole.portal.mapper.SysMenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.github.vole.portal.model.entity.SysMenu">
+		<id column="menu_id" property="id" />
+		<result column="menu_name" property="menuName" />
+		<result column="parent_id" property="parentId" />
+		<result column="url" property="url" />
+		<result column="icon" property="icon" />
+		<result column="sort" property="sort" />
+		<result column="deep" property="deep" />
+		<result column="code" property="code" />
+		<result column="resource" property="resource" />
+		<result column="del_flag" property="delFlag" />
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+
+
+</mapper>

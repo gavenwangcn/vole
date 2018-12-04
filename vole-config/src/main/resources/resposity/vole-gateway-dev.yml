@@ -1,0 +1,65 @@
+server:
+  port: 9999
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 12345678
+      url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+
+#spring:
+#  zipkin:
+#    rabbitmq:
+#      queue: zipkin
+#  sleuth:
+#    sampler:
+#      percentage: 0.2
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 1000
+    socket-timeout-millis: 1000
+  ratelimit:
+    key-prefix: vole-ratelimite
+    enabled: true
+    repository: REDIS
+    behind-proxy: true
+    policies:
+      vole-mps:
+        limit: 100
+        quota: 100
+        refresh-interval: 3
+      vole-demo:
+        limit: 100
+        quota: 100
+        refresh-interval: 3
+  ribbon-isolation-strategy: thread
+
+security:
+  oauth2:
+    client:
+      client-id: vole
+      client-secret: 123456
+    resource:
+      jwt:
+         key-uri: ${security.auth.server}/oauth/token_key #解析jwt令牌所需要密钥的地址
+
+ignore:
+  urls:
+    - /authentication/**
+    - /css/*.css
+    - /js/*.js
+    - /actuator/**
+    - /hystrix/**
+    - /metrics/**
+    - /loggers/**
+    - /mobile/cookie
+
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: vole-auth,vole-mps-service,vole-demo-service
+

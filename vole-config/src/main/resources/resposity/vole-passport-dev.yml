@@ -1,0 +1,47 @@
+server:
+  port: 7007
+  servlet:
+    session:
+      persistent: false
+      cookie:
+        name: vole-passport
+        http-only: true
+
+# datasoure默认使用JDBC
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+
+  mvc:
+    static-path-pattern: /static/**
+
+ignore:
+  urls:
+    - /passport/**
+    - /static/**
+    - /actuator/**
+    - /hystrix/**
+
+passport:
+  defaultRedirectUrl: http://localhost:1025
+
+
+

@@ -1,0 +1,12 @@
+server:
+  port: 4050
+
+sms:
+  dingtalk:
+    webhook: https://oapi.dingtalk.com/robot/send?access_token=639c8b9cbe01b2d664e5bfd69c2514ad145fb68da6efd554691eeae7fcb317d8
+  aliyun:
+    accessKey: accessKey
+    secretKey: secretKey
+    channels:
+      loginCodeChannel: SMS_34630023
+      serviceStatusChange: SMS_134310585

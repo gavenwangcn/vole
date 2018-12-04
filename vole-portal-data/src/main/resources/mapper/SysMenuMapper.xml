@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.vole.portal.data.mapper.SysMenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.github.vole.portal.data.model.entity.SysMenu">
+		<id column="menu_id" property="id" />
+		<result column="menu_name" property="menuName" />
+		<result column="parent_id" property="parentId" />
+		<result column="url" property="url" />
+		<result column="icon" property="icon" />
+		<result column="sort" property="sort" />
+		<result column="deep" property="deep" />
+		<result column="code" property="code" />
+		<result column="resource" property="resource" />
+		<result column="del_flag" property="delFlag" />
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+
+
+	<resultMap id="SysMenuVoResultMap" type="com.github.vole.portal.data.model.vo.SysMenuVO">
+		<id column="menu_id" property="id" />
+		<result column="menu_name" property="menuName" />
+		<result column="parent_id" property="parentId" />
+		<result column="url" property="url" />
+		<result column="icon" property="icon" />
+		<result column="sort" property="sort" />
+		<result column="deep" property="deep" />
+		<result column="code" property="code" />
+		<result column="resource" property="resource" />
+		<result column="del_flag" property="delFlag" />
+	</resultMap>
+
+
+	<select id="findMenuByRoleName" resultMap="SysMenuVoResultMap">
+        SELECT
+            sys_menu.*
+        FROM
+        sys_role
+        LEFT JOIN sys_role_menu ON sys_role_menu.role_id = sys_role.role_id
+        LEFT JOIN sys_menu ON sys_menu.menu_id = sys_role_menu.menu_id
+        WHERE
+        sys_role.del_flag = 0
+        AND sys_role.role_code = #{role}
+--         3 代表是 权限资源
+        AND sys_menu.deep = 3
+        ORDER BY sys_menu.menu_id DESC
+    </select>
+
+</mapper>

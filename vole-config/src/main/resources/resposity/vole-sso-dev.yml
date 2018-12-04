@@ -1,0 +1,48 @@
+server:
+  port: 4040
+  servlet:
+    context-path: /sso
+
+security:
+  oauth2:
+#    sso:
+#      # 跳转到SSO的登录路径默认为/login.
+#      loginPath: http://localhost:7001/authentication/require
+    client:
+      clientId: vole
+      clientSecret: vole
+      accessTokenUri: http://localhost:7001/oauth/cookie
+      userAuthorizationUri: http://localhost:7001/oauth/authorize
+#      clientAuthenticationScheme: form
+      scope: server
+    resource:
+#      jwt:
+#        key-uri:  http://localhost:7001/oauth/token_key
+      user-info-uri:  http://localhost:7001/authentication/member
+      preferTokenInfo: true
+      token-info-uri: http://localhost:7001/oauth/check_token
+
+spring:
+  application:
+    name: vole-sso-client
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+
+ignore:
+  urls:
+    - /css/*.css
+    - /js/*.js
+    - /actuator/**
+    - /hystrix/**
+    - /metrics/**
+    - /loggers/**
+
+
+
+
+

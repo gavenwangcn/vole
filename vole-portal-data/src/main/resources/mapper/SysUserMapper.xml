@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.vole.portal.data.mapper.SysUserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.github.vole.portal.data.model.entity.SysUser">
+		<id column="user_id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="phone" property="phone" />
+		<result column="avatar" property="avatar" />
+		<result column="dept_id" property="deptId"/>
+		<result column="del_flag" property="delFlag"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+
+
+	<!-- userVo结果集 -->
+	<resultMap id="userVoResultMap" type="com.github.vole.portal.data.model.vo.SysUserVO">
+		<id column="user_id" property="userId"/>
+		<result column="loginname" property="loginname"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="phone" property="phone" />
+		<result column="avatar" property="avatar" />
+		<result column="ucreate_time" property="createTime"/>
+		<result column="uupdate_time" property="updateTime"/>
+		<result column="udel_flag" property="delFlag"/>
+		<collection property="roleVoList" ofType="com.github.vole.portal.data.model.vo.SysRoleVO">
+			<id column="role_id" property="roleId" />
+			<result column="role_name" property="roleName" />
+			<result column="role_code" property="roleCode" />
+			<result column="role_desc" property="roleDesc" />
+			<result column="rcreate_time" property="createTime" />
+			<result column="rupdate_time" property="updateTime" />
+		</collection>
+	</resultMap>
+
+	<sql id="selectUserVo">
+        SELECT
+            `user`.user_id,
+            `user`.loginname,
+            `user`.username,
+            `user`.`password`,
+            `user`.phone,
+            `user`.avatar,
+            `user`.create_time AS ucreate_time,
+            `user`.update_time AS uupdate_time,
+            `user`.del_flag AS udel_flag,
+            r.role_id,
+            r.role_name,
+            r.role_code,
+            r.role_desc,
+            r.create_time AS rcreate_time,
+            r.update_time AS rupdate_time
+        FROM
+            sys_user AS `user`
+            LEFT JOIN sys_user_role AS ur ON ur.user_id = `user`.user_id
+            LEFT JOIN sys_role AS r ON r.role_id = ur.role_id
+    </sql>
+
+	<select id="selectUserVoByLoginname" resultMap="userVoResultMap">
+		<include refid="selectUserVo"/>
+		WHERE `user`.loginname = #{loginname}
+	</select>
+
+	<select id="selectUserVoByUsername" resultMap="userVoResultMap">
+		<include refid="selectUserVo"/>
+		WHERE `user`.username = #{username}
+	</select>
+
+	<select id="selectUserVoByMobile" resultMap="userVoResultMap">
+		<include refid="selectUserVo"/>
+		WHERE `user`.phone = #{mobile}
+	</select>
+	
+	<select id="selectUserList" resultType="java.util.Map">
+	
+		SELECT u.*,d.`dept_name` FROM `sys_user` u
+		LEFT JOIN `sys_dept` d ON d.`dept_id` = u.`dept_id` WHERE 1=1
+		<if test="search != null">
+			AND u.username LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		</if>
+		ORDER BY u.`create_time` DESC
+	</select>
+
+</mapper>

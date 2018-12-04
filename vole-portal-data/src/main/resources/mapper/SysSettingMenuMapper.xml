@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.vole.portal.data.mapper.SysSettingMenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.github.vole.portal.data.model.entity.SysSettingMenu">
+		<id column="id" property="id" />
+		<result column="sys_id" property="sysId" />
+		<result column="menu_id" property="menuId" />
+	</resultMap>
+	
+</mapper>

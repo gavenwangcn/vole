@@ -1,0 +1,138 @@
+server:
+  port: 6001
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: root
+#    password: 12345678
+#    url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+
+#spring:
+#  zipkin:
+#    rabbitmq:
+#      queue: zipkin
+#  sleuth:
+#    sampler:
+#      percentage: 0.2
+
+spring:
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: true
+    request-context-attribute: request
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+  mvc:
+    static-path-pattern: /static/**
+
+# 分库分表支持
+sharding:
+  jdbc:
+    defaultDataSourceName:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 12345678
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    datasource:
+      names: ds
+      ds:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 12345678
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    config:
+      sharding:
+        tables:
+          sys_log:
+            actual-data-nodes: ds.sys_log_${0..1}
+            table-strategy:
+              inline:
+                sharding-column: id
+                algorithm-expression: sys_log_${id % 2}
+            key-generator-column-name: id
+          member:
+            actual-data-nodes: ds.member_${0..1}
+            table-strategy:
+              inline:
+                sharding-column: member_id
+                algorithm-expression: member_${member_id % 2}
+            key-generator-column-name: member_id
+          member_role:
+            actual-data-nodes: ds.member_role_${0..1}
+            table-strategy:
+              inline:
+                sharding-column: id
+                algorithm-expression: member_role_${id % 2}
+            key-generator-column-name: id
+
+#mybaits-plus配置，修改主键类型，mapper.xml、type 别名等
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.github.vole.mps.vo.model
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: vole-portal-data
+  Httpclient:
+    enabled: false
+  OkHttp:
+    enabled: true
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+feign:
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  client:
+    config:
+      feignName:
+        connectTimeout: 30000
+        readTimeout: 30000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+
+ignore:
+  urls:
+    - /static/**
+    - /actuator/**
+    - /hystrix/**
+    - /rest/**
+
+security:
+  passport:
+    defaultRedirectUrl: http://localhost:7007/passport/login

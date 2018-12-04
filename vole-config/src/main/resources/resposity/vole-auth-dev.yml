@@ -1,0 +1,40 @@
+server:
+  port: 7001
+  servlet:
+    session:
+      cookie:
+        name: vole-auth
+        http-only: true
+# datasoure默认使用JDBC
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+
+ignore:
+  urls:
+    - /authentication/**
+    - /css/*.css
+    - /js/*.js
+    - /actuator/**
+    - /hystrix/**
+    - /loggers/**
+    - /mobile/cookie
+    - /oauth/token_key
+

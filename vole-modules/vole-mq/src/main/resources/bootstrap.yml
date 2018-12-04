@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: vole-mq
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: vole-config-server
+        enabled: true
+      profile: ${spring.profiles.active}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1025/eureka/

@@ -1,0 +1,83 @@
+#加密配置
+jasypt:
+  encryptor:
+    password: 12345678
+
+server:
+  tomcat:
+    max-threads: 500 # Maximum amount of worker threads.
+    min-spare-threads: 50 # Minimum amount of worker threads
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000ms
+    database: 0
+    jedis:
+      pool:
+        max-idle: 50
+        min-idle: 5
+        max-active: 200
+        max-wait: 20ms
+    lettuce:
+      pool:
+        max-active: 200
+        max-wait: 20ms
+        max-idle: 50
+        min-idle: 5
+
+redis:
+  cache:
+    expiration: 3600
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: vole-auth,vole-mps,vole-portal-data
+  Httpclient:
+    enabled: false
+  OkHttp:
+    enabled: true
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+feign:
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  client:
+    config:
+      feignName:
+        connectTimeout: 30000
+        readTimeout: 30000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 1000
+      queueSizeRejectionThreshold: 800
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

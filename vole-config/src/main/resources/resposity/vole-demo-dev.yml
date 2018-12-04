@@ -1,0 +1,35 @@
+server:
+  port: 6002
+
+#spring:
+#  zipkin:
+#    rabbitmq:
+#      queue: zipkin
+#  sleuth:
+#    sampler:
+#      percentage: 0.2
+
+spring:
+  application:
+    name: vole-demo
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/vole?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+
+ignore:
+  urls:
+    - /css/*.css
+    - /js/*.js
+    - /actuator/**
+    - /hystrix/**
+    - /metrics/**
+    - /loggers/**
+
+
+
+
+

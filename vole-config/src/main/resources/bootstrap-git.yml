@@ -1,0 +1,24 @@
+server:
+  port: 4001
+
+spring:
+  application:
+    name: vole-config-server
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/gavenwangcn/springcloudconfig.git
+          search-paths: respo
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1025/eureka
+    registry-fetch-interval-seconds: 10
