@@ -132,6 +132,8 @@ ignore:
     - /actuator/**
     - /hystrix/**
     - /rest/**
+    - /favicon.ico
+    - /index.html
 
 security:
   passport:

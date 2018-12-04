@@ -39,6 +39,7 @@ ignore:
     - /static/**
     - /actuator/**
     - /hystrix/**
+    - /favicon.ico
 
 passport:
   defaultRedirectUrl: http://localhost:1025
