@@ -12,7 +12,7 @@
     <description>monitor</description>
 
     <parent>
-        <groupId>com.github</groupId>
+        <groupId>com.github.vole</groupId>
         <artifactId>vole-modules</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
